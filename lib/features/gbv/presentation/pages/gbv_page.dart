@@ -29,7 +29,21 @@ class GbvPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Container(), // placeholder
+      body: Padding(
+  padding: EdgeInsets.symmetric(
+    horizontal: screenWidth * 0.05,
+    vertical: screenHeight * 0.02,
+  ),
+  child: Column(
+    children: [
+      Expanded(
+        child: ListView(
+          children: [],
+        ),
+      ),
+    ],
+  ),
+),
     );
   }
 }
