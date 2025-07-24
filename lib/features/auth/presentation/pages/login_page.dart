@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget {
                     'assets/images/logo.png',
                     height: 200,
                   ),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: 10),
 
                   Text(
                     'SafeHaven',
@@ -31,46 +31,158 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 43),
-                  
-                  //email field
-                  TextField(
+                  const SizedBox(height: 35),
+
+                  SizedBox(
+                    width: 300,
+                    height: 61,
+                    child:  TextField(
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                          color: Color(0xFFFFFFFF),
+                          width: 2
+                        ),  
+                      ),
+                    
                       prefixIcon: Image.asset('assets/images/User.png'),
+
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(color: Color(0xFFF2AFBC),
+                        width: 2
+                        )
+                      ),
+
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                          color: Color(0XFF9E182B),
+                          width: 2,
+                        )
+                      )
+
                     ),
                   ),
+                  ),
 
-                  const SizedBox(height: 37),
-                  //password
-                  TextField(
+                  const SizedBox(height: 30),
+                  
+                   SizedBox(
+                    width: 300,
+                    height: 61,
+                    child:  TextField(
                     obscureText: true,
                     decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                          color: Color(0xFFFFFFFF),
+                          width: 2
+                        ),  
+                      ),
+                    
                       prefixIcon: Image.asset('assets/images/Lock.png'),
-                      suffixIcon: Image.asset('assets/images/Eye_off.png')
+
+                      suffixIcon: Image.asset('assets/images/Eye_off.png'),
+
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(color: Color(0xFFF2AFBC),
+                        width: 2
+                        )
+                      ),
+
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                          color: Color(0XFF9E182B),
+                          width: 2,
+                        )
+                      )
+
+                    ),
+                  ),
+                  ),
+
+                  const SizedBox(height: 8),
+                  
+                  //forgot paaword link
+                  SizedBox(
+                    width: 300,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(onPressed: () {
+
+                      }, 
+                      child: const Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 18,
+                          color: Color(0XFF9E182B)
+                        ),
+                        )
+                      ),
                     ),
                   ),
 
-                  const SizedBox(height: 21),
-                  
-                  //forgot paaword link
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(onPressed: () {
-                      //navigate to forgot password page
+                  const SizedBox(height: 40),
 
-                    }, 
-                    child: const Text('Forgot Password?',
+                  //login button
+                  SizedBox(
+                    width: 182,
+                    height: 61,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        //TODO add fibase login logic here
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF9E182B),
+                        foregroundColor: Color(0xFFF5F5DC),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)
+                        ),
+                      ),
+                      child: const Text('LOGIN',
                       style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 20,
-                        color: Color(0xFF9E182B)
                       ),
-                    )
+                      ),
                     ),
-                  )
+                  ),
+
+                  const SizedBox(height: 44),
+
+                  //go to sign up page
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Don't have an account?",
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 18,
+                        ),
+                      ),
+                      TextButton(onPressed: () {
+                        //TODO navigate to login
+                      }, 
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 18,
+                          color: Color(0xFF9E182B)
+                        ),
+                        ),
+                      ),
+
+                    ],
+                  ),
 
                 ],
               )
