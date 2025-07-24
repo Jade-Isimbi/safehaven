@@ -1,10 +1,17 @@
+
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
 
-@override
+class _LoginPageState extends State<LoginPage> {
+  bool _obscurePassword = true;
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5DC),
@@ -74,7 +81,7 @@ class LoginPage extends StatelessWidget {
                     width: 300,
                     height: 61,
                     child:  TextField(
-                    obscureText: true,
+                    obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -86,7 +93,23 @@ class LoginPage extends StatelessWidget {
                     
                       prefixIcon: Image.asset('assets/images/Lock.png'),
 
-                      suffixIcon: Image.asset('assets/images/Eye_off.png'),
+                      
+
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        }, 
+                        icon: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset(
+                            _obscurePassword
+                                ? 'assets/images/Eye_off.png'
+                                : 'assets/images/Eye.png'
+                          )
+                        ),
+                      ),
 
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -169,7 +192,7 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       TextButton(onPressed: () {
-                        //TODO navigate to login
+                        Navigator.pushNamed(context, '/signup');
                       }, 
                       child: const Text(
                         'Sign Up',
@@ -192,4 +215,4 @@ class LoginPage extends StatelessWidget {
       )
     );
   }
-} 
+}

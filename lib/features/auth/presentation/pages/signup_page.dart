@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
-class SignupPage extends StatelessWidget {
+
+class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +32,7 @@ class SignupPage extends StatelessWidget {
                   Text(
                     'Welcome to SafeHaven',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontFamily: 'Kotta One',
                       color: Color(0xFF9E182B)
                     ),
@@ -73,7 +81,7 @@ class SignupPage extends StatelessWidget {
                     width: 300,
                     height: 61,
                     child:  TextField(
-                    obscureText: true,
+                    obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -85,7 +93,21 @@ class SignupPage extends StatelessWidget {
                     
                       prefixIcon: Image.asset('assets/images/Lock.png'),
 
-                      suffixIcon: Image.asset('assets/images/Eye_off.png'),
+                       suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        }, 
+                        icon: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset(
+                            _obscurePassword
+                                ? 'assets/images/Eye_off.png'
+                                : 'assets/images/Eye.png'
+                          )
+                        ),
+                      ),
 
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -185,7 +207,7 @@ class SignupPage extends StatelessWidget {
                         ),
                       ),
                       TextButton(onPressed: () {
-                        //TODO navigate to login
+                        Navigator.pushNamed(context, '/login');
                       }, 
                       child: const Text(
                         'Login',
@@ -208,4 +230,5 @@ class SignupPage extends StatelessWidget {
       )
     );
   }
-} 
+}
+

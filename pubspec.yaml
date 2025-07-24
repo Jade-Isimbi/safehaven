@@ -56,6 +56,7 @@ flutter:
     - assets/images/User.png
     - assets/images/Lock.png
     - assets/images/Eye_off.png
+    - assets/images/Eye.png
   fonts:
   - family: Kotta One
     fonts:
