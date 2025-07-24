@@ -40,6 +40,7 @@ class _SignupPageState extends State<SignupPage> {
 
                   const SizedBox(height: 35),
 
+                  //username
                   SizedBox(
                     width: 300,
                     height: 61,
@@ -76,8 +77,47 @@ class _SignupPageState extends State<SignupPage> {
                   ),
 
                   const SizedBox(height: 15),
-                  
-                   SizedBox(
+
+                  //email
+                  SizedBox(
+                    width: 300,
+                    height: 61,
+                    child:  TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                          color: Color(0xFFFFFFFF),
+                          width: 2
+                        ),  
+                      ),
+                    
+                      prefixIcon: Image.asset('assets/images/Mail.png'),
+
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(color: Color(0xFFF2AFBC),
+                        width: 2
+                        )
+                      ),
+
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                          color: Color(0XFF9E182B),
+                          width: 2,
+                        )
+                      )
+
+                    ),
+                  ),
+                  ),
+
+                  const SizedBox(height: 15),
+
+                  //password
+                  SizedBox(
                     width: 300,
                     height: 61,
                     child:  TextField(
@@ -108,45 +148,6 @@ class _SignupPageState extends State<SignupPage> {
                           )
                         ),
                       ),
-
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(color: Color(0xFFF2AFBC),
-                        width: 2
-                        )
-                      ),
-
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(
-                          color: Color(0XFF9E182B),
-                          width: 2,
-                        )
-                      )
-
-                    ),
-                  ),
-                  ),
-
-                  const SizedBox(height: 15),
-                  
-                   SizedBox(
-                    width: 300,
-                    height: 61,
-                    child:  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(
-                          color: Color(0xFFFFFFFF),
-                          width: 2
-                        ),  
-                      ),
-                    
-                      prefixIcon: Image.asset('assets/images/Lock.png'),
-
-                      suffixIcon: Image.asset('assets/images/Eye_off.png'),
 
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
