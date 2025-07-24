@@ -51,11 +51,30 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/images/logo.png
+    - assets/images/User.png
+    - assets/images/Lock.png
+    - assets/images/Eye_off.png
+  fonts:
+  - family: Kotta One
+    fonts:
+      - asset: fonts/Kotta_One/KottaOne-regular.ttf
+  - family: Charm
+    fonts:
+    - asset: fonts/Charm/Charm-Regular.ttf
+  - family: Inter
+    fonts:
+    - asset: fonts/Inter/static/inter_18pt-Regular.ttf
+  
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+ 
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
