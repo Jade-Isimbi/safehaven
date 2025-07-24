@@ -53,6 +53,9 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/logo.png
+    - assets/images/User.png
+    - assets/images/Lock.png
+    - assets/images/Eye_off.png
   fonts:
   - family: Kotta One
     fonts:
@@ -60,6 +63,9 @@ flutter:
   - family: Charm
     fonts:
     - asset: fonts/Charm/Charm-Regular.ttf
+  - family: Inter
+    fonts:
+    - asset: fonts/Inter/static/inter_18pt-Regular.ttf
   
 
 

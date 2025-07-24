@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
 
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
-  
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+
+class _SplashPageState extends State<SplashPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    //3 seconds delay on splash screen, then go to login
+    
+    Future.delayed(const Duration(seconds: 3), () {
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacementNamed(context, '/login');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,4 +70,3 @@ class SplashPage extends StatelessWidget {
     );
   }
 }
-
