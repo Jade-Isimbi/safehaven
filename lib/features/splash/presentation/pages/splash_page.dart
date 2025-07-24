@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
-  //colors for the app
   
 
   @override
@@ -21,29 +20,29 @@ class SplashPage extends StatelessWidget {
                 'assets/images/logo.png',
                 height: 301,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 26),
 
               // App name
               const Text(
                 'SafeHaven',
                 style: TextStyle(
+                  fontFamily: 'Kotta One',
                   fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF9E182B), // Match Figma pink
+                  color: Color(0xFF9E182B), 
                 ),
               ),
 
-              const SizedBox(height: 100), // Spacer before the quote
+              const SizedBox(height: 102), // Spacer before the quote
 
               // Quote at bottom-center
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 32.0),
                 child: Text(
-                  '"A safe space begins with knowledge and support."',
+                  '"It\'s okay to not be okay. Your feelings are valid, and your healing matters."',
                   style: TextStyle(
-                    fontSize: 14,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: 'Charm',
+                    color: Color(0xFF9E182B),
                   ),
                   textAlign: TextAlign.center,
                 ),

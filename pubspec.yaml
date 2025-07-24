@@ -53,6 +53,15 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/logo.png
+  fonts:
+  - family: Kotta One
+    fonts:
+      - asset: fonts/Kotta_One/KottaOne-regular.ttf
+  - family: Charm
+    fonts:
+    - asset: fonts/Charm/Charm-Regular.ttf
+  
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
