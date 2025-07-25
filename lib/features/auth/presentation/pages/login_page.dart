@@ -11,6 +11,32 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool _obscurePassword = true;
 
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _handleLogin() {
+    if (_formKey.currentState!.validate()) {
+      //if form is valid proceed with login
+      
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
+
+      // ignore: avoid_print
+      print('Logging in with: $email / $password');
+
+      //TODO FIREBASE AUTH HERE
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,16 +69,17 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     width: 300,
                     height: 61,
-                    child:  TextField(
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(
-                          color: Color(0xFFFFFFFF),
-                          width: 2
-                        ),  
-                      ),
+                    child:  TextFormField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                            color: Color(0xFFFFFFFF),
+                            width: 2
+                          ),  
+                        ),
                     
                       prefixIcon: Image.asset('assets/images/User.png'),
 
@@ -72,7 +99,17 @@ class _LoginPageState extends State<LoginPage> {
                       )
 
                     ),
-                  ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email cannot be empty';
+                      // ignore: valid_regexps
+                        } else if (!RegExp(r'^[\w-\.]+\.)+[\w]{2,4}$')
+                            .hasMatch(value)) {
+                          return 'Pleas enter valid email address';
+                        }
+                      return null;
+                      },
+                    ),
                   ),
 
                   const SizedBox(height: 30),
@@ -80,20 +117,19 @@ class _LoginPageState extends State<LoginPage> {
                    SizedBox(
                     width: 300,
                     height: 61,
-                    child:  TextField(
-                    obscureText: _obscurePassword,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(
+                    child:  TextFormField(
+                      controller: _passwordController,
+                      obscureText: _obscurePassword,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
                           color: Color(0xFFFFFFFF),
                           width: 2
                         ),  
                       ),
                     
                       prefixIcon: Image.asset('assets/images/Lock.png'),
-
-                      
 
                       suffixIcon: IconButton(
                         onPressed: () {
@@ -125,9 +161,17 @@ class _LoginPageState extends State<LoginPage> {
                           width: 2,
                         )
                       )
-
                     ),
-                  ),
+
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      } else if (value.length < 8) {
+                        return 'Password must be at least 8 characters';
+                      }
+                      return null;
+                      },
+                    ),
                   ),
 
                   const SizedBox(height: 8),
@@ -159,9 +203,8 @@ class _LoginPageState extends State<LoginPage> {
                     width: 182,
                     height: 61,
                     child: ElevatedButton(
-                      onPressed: () {
-                        //TODO add fibase login logic here
-                      },
+                      onPressed: _handleLogin,
+                      
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF9E182B),
                         foregroundColor: Color(0xFFF5F5DC),
