@@ -19,7 +19,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const SplashPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const SplashPage(),
+        '/login': (context) => const LoginPage(),
+        '/signup': (context) => const SignupPage()
+      },
+      // home: const SplashPage(),
       debugShowCheckedModeBanner: false,
     );
   }
