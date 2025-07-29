@@ -191,6 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(onPressed: () {
+                         Navigator.pushNamed(context, '/forgotPassword');
 
                       }, 
                       child: const Text(
