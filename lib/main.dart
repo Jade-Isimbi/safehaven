@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safehaven/features/splash/presentation/pages/splash_page.dart';
 import 'package:safehaven/features/auth/presentation/pages/login_page.dart';
 import 'package:safehaven/features/auth/presentation/pages/signup_page.dart';
+import 'package:safehaven/features/auth/presentation/pages/forgot_password_page.dart';
 import 'features/menu/presentation/pages/menu_page.dart';
 
 void main() {
@@ -19,7 +20,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const SplashPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const SplashPage(),
+        '/login': (context) => const LoginPage(),
+        '/signup': (context) => const SignupPage(),
+        '/forgotPassword': (context) => const ForgotPasswordPage(),
+      },
+      // home: const SplashPage(),
       debugShowCheckedModeBanner: false,
     );
   }
