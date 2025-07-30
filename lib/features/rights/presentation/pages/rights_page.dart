@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../menu/presentation/pages/menu_page.dart';
 import '../providers/rights_provider.dart';
 import '../../data/models/right_model.dart';
+import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
 
 class RightsPage extends StatefulWidget {
   const RightsPage({super.key});
@@ -25,40 +26,43 @@ class _RightsPageState extends State<RightsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDF8E4),
+      backgroundColor: const Color(0xFFF5F5DC),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        toolbarHeight: 80,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20, top: 10),
+            child: CircleAvatar(
+              radius: 24,
+              backgroundImage: AssetImage('assets/profile.png'),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: const Text(
-                          'Know Your Rights',
-                          style: TextStyle(
-                            color: Color(0xFFB05A7A),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22,
-                          ),
-                        ),
-                      ),
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Text(
+                    'Know Your Rights',
+                    style: TextStyle(
+                      color: Color(0xFFB05A7A),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
                     ),
                   ),
-                  const SizedBox(width: 12),
-                  CircleAvatar(
-                    radius: 24,
-                    backgroundImage: AssetImage('assets/profile.png'),
-                  ),
-                ],
+                ),
               ),
             ),
             const Padding(
@@ -174,19 +178,8 @@ class _RightsPageState extends State<RightsPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: CustomBottomNavigationBar(
         currentIndex: 1,
-        selectedItemColor: Colors.pink[300],
-        unselectedItemColor: Colors.pink[100],
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
-        ],
         onTap: (index) {
           if (index == 1) {
             Navigator.of(context).pushReplacement(
