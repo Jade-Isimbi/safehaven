@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/menu_search_bar.dart';
 import '../widgets/menu_card.dart';
 import '../../../rights/presentation/pages/rights_page.dart';
+import '../../../coping/presentation/pages/coping_page.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -34,7 +35,13 @@ class MenuPage extends StatelessWidget {
                 children: [
                   const MenuCard(title: "Understanding GBV", label: "Education"),
                   const SizedBox(height: 16),
-                  const MenuCard(title: "Coping & Mental Health tools", label: "Wellness"),
+                  MenuCard(
+                    title: "Coping & Mental Health tools",
+                    label: "Wellness",
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/coping');
+                    },
+                  ),
                   const SizedBox(height: 16),
                   MenuCard(
                     title: "Know Your Rights",
