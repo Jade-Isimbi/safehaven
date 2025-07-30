@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../features/menu/presentation/pages/menu_page.dart';
 import '../../features/search/presentation/pages/search_page.dart';
+import '../../features/rating/rating_page.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
@@ -31,6 +32,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const SearchPage()),
           );
+        } else if (index == 2) {
+          // Navigate to rating page when star icon is tapped
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const RatingPage()),
+          );
         }
         // Call the original onTap callback if provided
         onTap?.call(index);
@@ -38,7 +44,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
         BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.star), label: ''),
         BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
       ],
     );
