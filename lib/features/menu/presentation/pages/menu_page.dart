@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/menu_search_bar.dart';
 import '../widgets/menu_card.dart';
 import '../../../rights/presentation/pages/rights_page.dart';
 import '../../../support/presentation/pages/support_page.dart';
@@ -15,13 +14,12 @@ class MenuPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Top Row: Search Bar + Avatar
+            // Top Row: Avatar only
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Expanded(child: MenuSearchBar()),
-                  const SizedBox(width: 12),
                   CircleAvatar(
                     radius: 24,
                     backgroundImage: AssetImage('assets/profile.png'),
@@ -67,7 +65,7 @@ class MenuPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(currentIndex: 1),
+      bottomNavigationBar: const CustomBottomNavigationBar(currentIndex: 0),
     );
   }
 } 
