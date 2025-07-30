@@ -18,14 +18,7 @@ class MenuCard extends StatelessWidget {
           curve: Curves.easeInOut,
           margin: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.pink[50]!.withOpacity(0.9),
-                Colors.white.withOpacity(0.95),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+            color: Colors.white,
             borderRadius: BorderRadius.circular(24),
             border: Border.all(color: Colors.pink[100]!, width: 1.5),
             boxShadow: [
