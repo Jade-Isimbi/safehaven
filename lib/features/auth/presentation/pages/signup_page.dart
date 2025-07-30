@@ -177,6 +177,9 @@ class _SignupPageState extends State<SignupPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         //TODO add fibase login logic here
+                        
+                        // Navigate to menu page after successful signup
+                        Navigator.of(context).pushReplacementNamed('/menu');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF9E182B),

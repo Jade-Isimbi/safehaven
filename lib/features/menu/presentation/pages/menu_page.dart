@@ -3,6 +3,8 @@ import '../widgets/menu_search_bar.dart';
 import '../widgets/menu_card.dart';
 import '../../../rights/presentation/pages/rights_page.dart';
 import '../../../coping/presentation/pages/coping_page.dart';
+import '../../../support/presentation/pages/support_page.dart';
+import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -10,7 +12,7 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDF8E4),
+      backgroundColor: const Color(0xFFF5F5DC),
       body: SafeArea(
         child: Column(
           children: [
@@ -55,27 +57,24 @@ class MenuPage extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 16),
-                  const MenuCard(title: "Support Directory", label: "Contacts"),
+                  MenuCard(
+                    title: "Support Directory",
+                    label: "Contacts",
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SupportPage(),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        selectedItemColor: Colors.pink[300],
-        unselectedItemColor: Colors.pink[100],
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
-        ],
-      ),
+      bottomNavigationBar: const CustomBottomNavigationBar(currentIndex: 1),
     );
   }
 } 

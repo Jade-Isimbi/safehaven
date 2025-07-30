@@ -43,6 +43,9 @@ class _LoginPageState extends State<LoginPage> {
       print('Logging in with: $email / $password');
 
       //TODO FIREBASE AUTH HERE
+      
+      // Navigate to menu page after successful login
+      Navigator.of(context).pushReplacementNamed('/menu');
     }
   }
 
