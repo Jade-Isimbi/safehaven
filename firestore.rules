@@ -1,0 +1,20 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Function to validate URL format
+    function isValidUrl(url) {
+      return url.matches('^https?://.*');
+    }
+    
+    // Rights collection rules
+    match /rightsContent/{document} {
+      allow read: if true; // Anyone can read rights
+      allow write: if request.auth != null; // Only authenticated users can write
+      
+      // Validate URL field if present
+      allow create, update: if 
+        request.auth != null &&
+        (resource == null || resource.data.url == null || isValidUrl(resource.data.url));
+    }
+  }
+} 
