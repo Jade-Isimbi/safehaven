@@ -70,3 +70,79 @@ class GbvPage extends StatelessWidget {
               Icons.bookmark_border,
               false,
               () {
+                // Navigate to Types of GBV page
+              },
+            ),
+            const SizedBox(height: 16),
+
+            _buildMenuItem(
+              context,
+              'Impact of GBV',
+              Icons.bookmark_border,
+              false,
+              () {
+                // Navigate to Impact of GBV page
+              },
+            ),
+            const SizedBox(height: 16),
+
+            _buildMenuItem(context, 'Help a Victim', Icons.bookmark, true, () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HelpVictimPage()),
+              );
+            }),
+          ],
+        ),
+      ),
+      bottomNavigationBar: const CustomBottomNavigationBar(
+        currentIndex: 0, // Set home as active since we're in the app
+      ),
+    );
+  }
+
+  Widget _buildMenuItem(
+    BuildContext context,
+    String title,
+    IconData icon,
+    bool isSelected,
+    VoidCallback onTap,
+  ) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: isSelected ? Colors.black : Colors.black87,
+                ),
+              ),
+            ),
+            Icon(
+              icon,
+              color: isSelected ? Colors.black : Colors.grey,
+              size: 24,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
