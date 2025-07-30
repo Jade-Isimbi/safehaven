@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
+import 'helpvictim_page.dart';
 
 class GbvPage extends StatelessWidget {
-  const GbvPage({Key? key}) : super(key: key);
+  const GbvPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +23,13 @@ class GbvPage extends StatelessWidget {
             fontSize: 18,
             fontWeight: FontWeight.w500,
           ),
-           ),
+        ),
         centerTitle: true,
         actions: [
           CircleAvatar(
             radius: 16,
             backgroundColor: Colors.brown.shade300,
-            child: const Icon(
-              Icons.person,
-              color: Colors.white,
-              size: 20,
-            ),
+            child: const Icon(Icons.person, color: Colors.white, size: 20),
           ),
           const SizedBox(width: 16),
         ],
@@ -51,7 +48,7 @@ class GbvPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            
+
             // Menu Items
             _buildMenuItem(
               context,
@@ -63,7 +60,7 @@ class GbvPage extends StatelessWidget {
               },
             ),
             const SizedBox(height: 16),
-            
+
             _buildMenuItem(
               context,
               'Types of GBV',
@@ -117,7 +114,7 @@ class GbvPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),

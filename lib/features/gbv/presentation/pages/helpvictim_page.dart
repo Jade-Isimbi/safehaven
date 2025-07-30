@@ -1,135 +1,192 @@
 import 'package:flutter/material.dart';
+import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
 
-class GbvPage extends StatelessWidget {
+class HelpVictimPage extends StatefulWidget {
+  const HelpVictimPage({super.key});
+
+  @override
+  State<HelpVictimPage> createState() => _HelpVictimPageState();
+}
+
+class _HelpVictimPageState extends State<HelpVictimPage> {
+  bool isPlaying = false;
+  bool isFavorited = false;
+
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5DC),
+      backgroundColor: const Color(0xFFF5F3E7), // Light cream background
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color(0xFFF5F3E7),
         elevation: 0,
-        leading: Container(
-          margin: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.brown.shade300,
-            shape: BoxShape.circle,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.keyboard_arrow_down,
+            color: Colors.black,
+            size: 28,
           ),
-          child: Icon(Icons.person, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
-          'Understanding GBV',
-          style: TextStyle(
-            color: Colors.pink.shade300,
-            fontSize: screenWidth * 0.05,
-            fontWeight: FontWeight.w500,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.favorite_border, color: Colors.black),
+            onPressed: () {
+              setState(() {
+                isFavorited = !isFavorited;
+              });
+            },
           ),
-        ),
-        centerTitle: true,
+          IconButton(
+            icon: const Icon(Icons.download, color: Colors.black),
+            onPressed: () {
+              // Handle download
+            },
+          ),
+        ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.05,
-          vertical: screenHeight * 0.02,
-        ),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Expanded(
-              child: ListView(
-                children: [
-                  _buildMenuCard(context, 'Signs of GBV', false, () {}),
-                  SizedBox(height: screenHeight * 0.02),
-                  _buildMenuCard(context, 'Types of GBV', false, () {}),
-                  SizedBox(height: screenHeight * 0.02),
-                  _buildMenuCard(context, 'Impact of GBV', false, () {}),
-                  SizedBox(height: screenHeight * 0.02),
-                  _buildMenuCard(context, 'Help a Victim', true, () {
-                    Navigator.pushNamed(context, '/help-victim');
-                  }),
-                ],
+            const Spacer(),
+
+            // Podcast Avatar/Image
+            Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Colors.pink.shade200, Colors.purple.shade200],
+                ),
+              ),
+              child: Center(
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.brown,
+                  ),
+                  child: const Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                ),
               ),
             ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: _buildBottomNavBar(context),
-    );
-  }
 
-  Widget _buildMenuCard(
-    BuildContext context,
-    String title,
-    bool isSelected,
-    VoidCallback onTap,
-  ) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+            const SizedBox(height: 40),
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.05,
-          vertical: screenHeight * 0.02,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.8),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.pink.shade200, width: 1),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
+            // Title
+            const Text(
+              'Help a victim',
               style: TextStyle(
-                fontSize: screenWidth * 0.045,
+                fontSize: 18,
                 fontWeight: FontWeight.w500,
                 color: Colors.black87,
               ),
             ),
-            Icon(
-              isSelected ? Icons.bookmark : Icons.bookmark_border,
-              color: isSelected ? Colors.black : Colors.grey,
-              size: screenWidth * 0.06,
+
+            const SizedBox(height: 60),
+
+            // Control Buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // Previous/Rewind
+                IconButton(
+                  onPressed: () {
+                    // Handle previous/rewind
+                  },
+                  icon: const Icon(
+                    Icons.skip_previous,
+                    color: Colors.black,
+                    size: 32,
+                  ),
+                ),
+
+                // Play/Pause
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isPlaying = !isPlaying;
+                    });
+                  },
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.black,
+                    ),
+                    child: Icon(
+                      isPlaying ? Icons.pause : Icons.play_arrow,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                ),
+
+                // Next/Forward
+                IconButton(
+                  onPressed: () {
+                    // Handle next/forward
+                  },
+                  icon: const Icon(
+                    Icons.skip_next,
+                    color: Colors.black,
+                    size: 32,
+                  ),
+                ),
+              ],
             ),
+
+            const SizedBox(height: 40),
+
+            // Share and Favorite buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    // Handle share
+                  },
+                  icon: const Icon(
+                    Icons.share,
+                    color: Colors.black54,
+                    size: 24,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isFavorited = !isFavorited;
+                    });
+                  },
+                  icon: Icon(
+                    isFavorited ? Icons.star : Icons.star_border,
+                    color: isFavorited ? Colors.amber : Colors.black54,
+                    size: 24,
+                  ),
+                ),
+              ],
+            ),
+
+            const Spacer(),
           ],
         ),
+      ),
+      bottomNavigationBar: const CustomBottomNavigationBar(
+        currentIndex: 0, // Set home as active
       ),
     );
   }
 
-  Widget _buildBottomNavBar(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: Offset(0, -2),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Icon(Icons.home, color: Colors.pink, size: screenWidth * 0.07),
-          Icon(Icons.search, color: Colors.grey, size: screenWidth * 0.07),
-          Icon(Icons.add, color: Colors.grey, size: screenWidth * 0.07),
-          Icon(
-            Icons.notifications,
-            color: Colors.grey,
-            size: screenWidth * 0.07,
-          ),
-          Icon(Icons.settings, color: Colors.grey, size: screenWidth * 0.07),
-        ],
-      ),
-    );
+  Widget _buildBottomNavItem(IconData icon, Color color, bool isSelected) {
+    return Icon(icon, color: color, size: 28);
   }
 }
