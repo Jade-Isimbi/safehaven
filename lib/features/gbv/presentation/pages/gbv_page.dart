@@ -22,3 +22,51 @@ class GbvPage extends StatelessWidget {
             fontSize: 18,
             fontWeight: FontWeight.w500,
           ),
+           ),
+        centerTitle: true,
+        actions: [
+          CircleAvatar(
+            radius: 16,
+            backgroundColor: Colors.brown.shade300,
+            child: const Icon(
+              Icons.person,
+              color: Colors.white,
+              size: 20,
+            ),
+          ),
+          const SizedBox(width: 16),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Understanding GBV',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                color: Colors.pink,
+              ),
+            ),
+            const SizedBox(height: 30),
+            
+            // Menu Items
+            _buildMenuItem(
+              context,
+              'Signs of GBV',
+              Icons.bookmark_border,
+              false,
+              () {
+                // Navigate to Signs of GBV page
+              },
+            ),
+            const SizedBox(height: 16),
+            
+            _buildMenuItem(
+              context,
+              'Types of GBV',
+              Icons.bookmark_border,
+              false,
+              () {
