@@ -8,6 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'features/menu/presentation/pages/menu_page.dart';
 import 'features/rights/presentation/providers/rights_provider.dart';
+import 'features/support/presentation/providers/support_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,10 +24,11 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => RightsProvider()),
+        ChangeNotifierProvider(create: (_) => SupportProvider()),
       ],
       child: MaterialApp(
         title: 'SafeHaven',
-        initialRoute: '/',
+        initialRoute: '/support',
         routes: {
           '/': (context) => const SplashPage(),
           '/login': (context) => const LoginPage(),
