@@ -5,6 +5,7 @@ import '../../../menu/presentation/pages/menu_page.dart';
 import '../providers/rights_provider.dart';
 import '../../data/models/right_model.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
+import '../../../../shared/widgets/logout_button.dart';
 
 class RightsPage extends StatefulWidget {
   const RightsPage({super.key});
@@ -31,12 +32,13 @@ class _RightsPageState extends State<RightsPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 80,
+        leading: const LogoutButton(),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20, top: 10),
             child: CircleAvatar(
               radius: 24,
-              backgroundImage: AssetImage('assets/profile.png'),
+              backgroundImage: AssetImage('assets/images/app_icon.png'),
             ),
           ),
         ],

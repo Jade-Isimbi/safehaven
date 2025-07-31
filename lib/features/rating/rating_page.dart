@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../shared/widgets/custom_bottom_navigation_bar.dart';
+import '../../shared/widgets/logout_button.dart';
 
 class RatingPage extends StatefulWidget {
   const RatingPage({Key? key}) : super(key: key);
@@ -21,18 +22,23 @@ class _RatingPageState extends State<RatingPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 80,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color(0xFFB05A7A)),
-          onPressed: () {
-            Navigator.of(context).pushReplacementNamed('/menu');
-          },
+        leading: Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.arrow_back, color: Color(0xFFB05A7A)),
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed('/menu');
+              },
+            ),
+            const LogoutButton(),
+          ],
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20, top: 10),
             child: CircleAvatar(
               radius: 24,
-              backgroundImage: AssetImage('assets/profile.png'),
+              backgroundImage: AssetImage('assets/images/app_icon.png'),
             ),
           ),
         ],

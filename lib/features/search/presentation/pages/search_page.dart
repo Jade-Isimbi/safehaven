@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
+import '../../../../shared/widgets/logout_button.dart';
 import '../../../rights/presentation/pages/rights_page.dart';
 import '../../../support/presentation/pages/support_page.dart';
 
@@ -52,12 +53,13 @@ class _SearchPageState extends State<SearchPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 80,
+        leading: const LogoutButton(),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20, top: 10),
             child: CircleAvatar(
               radius: 24,
-              backgroundImage: AssetImage('assets/profile.png'),
+              backgroundImage: AssetImage('assets/images/app_icon.png'),
             ),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../shared/widgets/logout_button.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
 
 class CopingTool {
@@ -115,6 +116,32 @@ class _CopingPageState extends State<CopingPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
+              padding: const EdgeInsets.only(top: 24.0, left: 16, right: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const LogoutButton(),
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundImage: AssetImage('assets/images/app_icon.png'),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: Color(0xFFF2AFBC),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: const Center(
+                  child: Text(
+                    'Coping and Mental\nhealth Tools',
+                    textAlign: TextAlign.center,
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
               child: Center(
                 child: Container(
