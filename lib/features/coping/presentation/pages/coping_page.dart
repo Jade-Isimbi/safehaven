@@ -1,4 +1,88 @@
 import 'package:flutter/material.dart';
+import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
+
+class CopingTool {
+  final String title;
+  final String content;
+  const CopingTool({required this.title, required this.content});
+}
+
+final List<CopingTool> _tools = [
+  CopingTool(
+    title: 'PTSD, anxiety, explained',
+    content: '''
+Understand what PTSD and anxiety are, and how they affect mental health.
+
+🧠 PTSD (Post-Traumatic Stress Disorder):
+- Can result from traumatic events
+- May cause flashbacks, nightmares, or emotional numbness
+
+🌬️ Anxiety:
+- Feels like racing thoughts, sweating, chest tightness
+- Often linked to stress or fear
+
+✨ Tips to manage:
+- Practice deep breathing and mindfulness
+- Avoid triggers when possible
+- Talk to someone you trust or a professional
+''',
+  ),
+  CopingTool(
+    title: 'Grounding exercises',
+    content: '''
+Grounding techniques help you reconnect with the present moment when feeling overwhelmed.
+
+🖐️ Try the 5-4-3-2-1 Method:
+- 5 things you can SEE
+- 4 things you can TOUCH
+- 3 things you can HEAR
+- 2 things you can SMELL
+- 1 thing you can TASTE
+
+🧘 Additional Grounding Ideas:
+- Hold a cold bottle of water and describe how it feels
+- Name every object in the room out loud
+- Take 10 slow, deep breaths
+''',
+  ),
+  CopingTool(
+    title: 'Self-care routines',
+    content: '''
+Self-care helps you stay mentally and emotionally balanced.
+
+🌅 Morning Routine Ideas:
+- Drink a glass of water
+- Stretch or take a short walk
+- Set one small goal for the day
+
+🌙 Evening Routine Ideas:
+- Unplug from screens 30 mins before bed
+- Write 3 things you're grateful for
+- Listen to calming music
+
+💡 Pro Tip:
+Your routine can be small — consistency is more important than perfection.
+''',
+  ),
+  CopingTool(
+    title: 'Self-assessment checklists',
+    content: '''
+Use this checklist to check in with yourself regularly:
+
+✅ Daily Check-in:
+- How am I feeling emotionally? (Happy, stressed, tired?)
+- How did I sleep last night?
+- Am I eating regularly?
+
+📋 Weekly Reflections:
+- What was one good moment this week?
+- What drained me the most?
+- What do I need to feel better?
+
+🧭 Self-awareness is the first step toward self-care. No pressure — just honesty.
+''',
+  ),
+];
 
 class CopingPage extends StatefulWidget {
   const CopingPage({Key? key}) : super(key: key);
@@ -8,166 +92,94 @@ class CopingPage extends StatefulWidget {
 }
 
 class _CopingPageState extends State<CopingPage> {
-  final List<_CopingTool> _tools = [
-    _CopingTool(
-      title: 'PTSD, anxiety, explained',
-      content: 'Learn about PTSD and anxiety, their symptoms, and how to manage them.\n\nTips:\n- Practice mindfulness\n- Seek support\n- Maintain a healthy routine',
-    ),
-    _CopingTool(
-      title: 'Grounding exercises',
-      content: 'Grounding exercises help you stay present.\n\nTry this:\n- 5 things you can see\n- 4 things you can touch\n- 3 things you can hear\n- 2 things you can smell\n- 1 thing you can taste',
-    ),
-    _CopingTool(
-      title: 'self-care routines',
-      content: 'Self-care is essential for mental health.\n\nIdeas:\n- Take a walk\n- Journal your thoughts\n- Listen to music\n- Connect with friends',
-    ),
-    _CopingTool(
-      title: 'Self-assessment checklists',
-      content: 'Check in with yourself regularly.\n\nChecklist:\n- How am I feeling today?\n- What do I need right now?\n- Who can I reach out to for support?',
-    ),
-  ];
-
-  final Set<int> _bookmarked = {};
-
-  void _toggleBookmark(int index) {
-    setState(() {
-      if (_bookmarked.contains(index)) {
-        _bookmarked.remove(index);
-      } else {
-        _bookmarked.add(index);
-      }
-    });
-  }
-
-  void _openTool(BuildContext context, _CopingTool tool) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(tool.title, style: const TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.bold)),
-        content: Text(tool.content, style: const TextStyle(fontFamily: 'Inter')),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Close'),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5DC),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        toolbarHeight: 80,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20, top: 10),
+            child: CircleAvatar(
+              radius: 24,
+              backgroundImage: AssetImage('assets/profile.png'),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 24.0, left: 16, right: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundImage: AssetImage('assets/images/app_icon.png'),
+              padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                decoration: BoxDecoration(
-                  color: Color(0xFFF2AFBC),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Coping and Mental\nhealth Tools',
-                    textAlign: TextAlign.center,
+                  child: const Text(
+                    'Coping & Mental Health Tools',
                     style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFB05A7A),
                       fontSize: 22,
-                      color: Color(0xFF9E182B),
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Kotta One',
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 8),
             Expanded(
-              child: ListView.separated(
+              child: ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 itemCount: _tools.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 16),
                 itemBuilder: (context, index) {
                   final tool = _tools[index];
-                  final isBookmarked = _bookmarked.contains(index);
-                  return GestureDetector(
-                    onTap: () => _openTool(context, tool),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Color(0xFFF2AFBC), width: 2),
+                  return Card(
+                    color: Colors.white,
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: ExpansionTile(
+                      title: Text(
+                        tool.title,
+                        style: const TextStyle(
+                          fontFamily: 'Kotta One',
+                          fontSize: 20,
+                          color: Color(0xFF9E182B),
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 16),
-                              child: Text(
-                                tool.title,
-                                style: const TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: 16,
-                                  color: Color(0xFF9E182B),
-                                ),
-                              ),
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            tool.content,
+                            style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 16,
+                              color: Color(0xFF333333),
                             ),
                           ),
-                          Container(
-                            height: 56,
-                            width: 56,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFF2AFBC),
-                              borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(12),
-                                bottomRight: Radius.circular(12),
-                              ),
-                            ),
-                            child: IconButton(
-                              icon: Icon(
-                                isBookmarked ? Icons.bookmark : Icons.bookmark_border,
-                                color: isBookmarked ? Color(0xFF9E182B) : Color(0xFF9E182B),
-                                size: 28,
-                              ),
-                              onPressed: () => _toggleBookmark(index),
-                              tooltip: isBookmarked ? 'Remove Bookmark' : 'Bookmark',
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   );
                 },
               ),
             ),
-            // Bottom navigation bar placeholder (if needed)
-            // ...
           ],
         ),
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 1),
     );
   }
-}
-
-class _CopingTool {
-  final String title;
-  final String content;
-  _CopingTool({required this.title, required this.content});
 }
