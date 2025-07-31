@@ -7,6 +7,7 @@ import '../../../rights/presentation/pages/rights_page.dart';
 import '../../../support/presentation/pages/support_page.dart';
 import '../../../settings/presentation/pages/settings_page.dart';
 import '../pages/signup_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../../splash/presentation/pages/splash_page.dart';
 import '../../../onboarding/presentation/pages/onboarding_page.dart';
 
@@ -18,6 +19,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _isLoading = false;
   bool _obscurePassword = true;
 
   final _formKey = GlobalKey<FormState>();
@@ -32,20 +34,28 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void _handleLogin() {
+  void _handleLogin() async {
     if (_formKey.currentState!.validate()) {
-      //if form is valid proceed with login
-      
+      setState(() {
+        _isLoading = true;
+      });
       final email = _emailController.text.trim();
       final password = _passwordController.text.trim();
-
-      // ignore: avoid_print
-      print('Logging in with: $email / $password');
-
-      //TODO FIREBASE AUTH HERE
-      
-      // Navigate to menu page after successful login
-      Navigator.of(context).pushReplacementNamed('/menu');
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        Navigator.of(context).pushReplacementNamed('/menu');
+      } on FirebaseAuthException catch (error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error.message ?? 'Login failed')),
+        );
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -215,23 +225,25 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     width: 182,
                     height: 61,
-                    child: ElevatedButton(
-                      onPressed: _handleLogin,
-                      
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF9E182B),
-                        foregroundColor: Color(0xFFF5F5DC),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)
-                        ),
-                      ),
-                      child: const Text('LOGIN',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 20,
-                      ),
+                  child: ElevatedButton(
+                    onPressed: _isLoading ? null : _handleLogin,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF9E182B),
+                      foregroundColor: Color(0xFFF5F5DC),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
                       ),
                     ),
+                    child: _isLoading
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : const Text(
+                            'LOGIN',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 20,
+                            ),
+                          ),
+                  ),
                   ),
 
                   const SizedBox(height: 44),

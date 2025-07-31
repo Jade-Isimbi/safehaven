@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safehaven/features/splash/presentation/pages/splash_page.dart';
 import 'package:safehaven/features/auth/presentation/pages/login_page.dart';
 import 'package:safehaven/features/auth/presentation/pages/signup_page.dart';
+import 'package:safehaven/features/auth/presentation/pages/forgot_password_page.dart';
 import 'package:safehaven/features/rating/rating_page.dart';
 import 'package:safehaven/features/support/presentation/pages/support_page.dart';
 import 'package:firebase_core/firebase_core.dart';
