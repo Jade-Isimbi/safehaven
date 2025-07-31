@@ -4,6 +4,7 @@ import '../../../rights/presentation/pages/rights_page.dart';
 import '../../../coping/presentation/pages/coping_page.dart';
 import '../../../support/presentation/pages/support_page.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
+import '../../../../shared/widgets/logout_button.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -15,15 +16,16 @@ class MenuPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Top Row: Avatar only
+            // Top Row: Logout button and Avatar
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  const LogoutButton(),
                   CircleAvatar(
                     radius: 24,
-                    backgroundImage: AssetImage('assets/profile.png'),
+                    backgroundImage: AssetImage('assets/images/app_icon.png'),
                   ),
                 ],
               ),

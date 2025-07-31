@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
+import '../../../../shared/widgets/logout_button.dart';
 import '../providers/support_provider.dart';
 
 class SupportPage extends StatefulWidget {
@@ -28,12 +29,13 @@ class _SupportPageState extends State<SupportPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 80,
+        leading: const LogoutButton(),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20, top: 10),
             child: CircleAvatar(
               radius: 24,
-              backgroundImage: AssetImage('assets/User.png'),
+              backgroundImage: AssetImage('assets/images/app_icon.png'),
             ),
           ),
         ],

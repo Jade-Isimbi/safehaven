@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../shared/widgets/logout_button.dart';
 
 class CopingPage extends StatefulWidget {
   const CopingPage({Key? key}) : super(key: key);
@@ -65,8 +66,9 @@ class _CopingPageState extends State<CopingPage> {
             Padding(
               padding: const EdgeInsets.only(top: 24.0, left: 16, right: 16),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  const LogoutButton(),
                   CircleAvatar(
                     radius: 20,
                     backgroundImage: AssetImage('assets/images/app_icon.png'),
