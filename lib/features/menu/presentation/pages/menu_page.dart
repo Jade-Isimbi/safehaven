@@ -39,7 +39,11 @@ class MenuPage extends StatelessWidget {
                     title: "Coping & Mental Health tools",
                     label: "Wellness",
                     onTap: () {
-                      Navigator.of(context).pushNamed('/coping');
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const CopingPage(),
+                        ),
+                      );
                     },
                   ),
                   const SizedBox(height: 16),
