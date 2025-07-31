@@ -17,6 +17,7 @@ import 'features/auth/presentation/providers/auth_provider.dart';
 import 'features/gbv/presentation/providers/educational_content_provider.dart';
 import 'features/coping/presentation/providers/coping_tool_provider.dart';
 import 'features/bookmarks/presentation/providers/bookmark_provider.dart';
+import 'features/rating/presentation/providers/rating_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => EducationalContentProvider()),
         ChangeNotifierProvider(create: (_) => CopingToolProvider()),
         ChangeNotifierProvider(create: (_) => BookmarkProvider()),
+        ChangeNotifierProvider(create: (_) => RatingProvider()),
       ],
       child: MaterialApp(
         title: 'SafeHaven',
