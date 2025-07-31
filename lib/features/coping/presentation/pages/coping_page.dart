@@ -138,26 +138,14 @@ class _CopingPageState extends State<CopingPage> {
                   color: Color(0xFFF2AFBC),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: const Center(
-                  child: Text(
-                    'Coping and Mental\nhealth Tools',
-                    textAlign: TextAlign.center,
-              padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
-              child: Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: const Text(
-                    'Coping & Mental Health Tools',
-                    style: TextStyle(
-                      color: Color(0xFFB05A7A),
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Kotta One',
-                    ),
+                child: const Text(
+                  'Coping and Mental\nhealth Tools',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFFB05A7A),
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Kotta One',
                   ),
                 ),
               ),

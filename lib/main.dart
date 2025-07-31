@@ -34,7 +34,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => RightsProvider()),
         ChangeNotifierProvider(create: (_) => SupportProvider()),
       ],
-      providers: [ChangeNotifierProvider(create: (_) => RightsProvider())],
       child: MaterialApp(
         title: 'SafeHaven',
         initialRoute: '/support',
