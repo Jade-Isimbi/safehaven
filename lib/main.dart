@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 /*import 'package:safehaven/features/splash/presentation/pages/splash_page.dart';
 import 'package:safehaven/features/auth/presentation/pages/login_page.dart';
 import 'package:safehaven/features/auth/presentation/pages/signup_page.dart';
+<<<<<<< HEAD
 import 'package:safehaven/features/auth/presentation/pages/forgot_password_page.dart';
 import 'package:safehaven/features/rating/rating_page.dart';
 import 'package:safehaven/features/support/presentation/pages/support_page.dart';
@@ -21,6 +22,13 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+=======
+import 'package:firebase_core/firebase_core.dart';
+
+void main()  async {
+  WidgetsFlutterBinding();
+  await Firebase.initializeApp();
+>>>>>>> 7bc2898ad137b3f52938f71dcefe05a6c7a7f0d4
   runApp(const MyApp());
 }
 

@@ -73,11 +73,28 @@ class _LoginPageState extends State<LoginPage> {
               child: Form(
                 key: _formKey,
                 child: Column(
+<<<<<<< HEAD
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
                       'assets/images/logo.png',
                       height: 200,
+=======
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/logo.png',
+                    height: 200,
+                  ),
+                  const SizedBox(height: 10),
+
+                  Text(
+                    'SafeHaven',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontFamily: 'Kotta One',
+                      color: Color(0xFF9E182B)
+>>>>>>> 7bc2898ad137b3f52938f71dcefe05a6c7a7f0d4
                     ),
                     const SizedBox(height: 10),
                     Text(
@@ -263,10 +280,20 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
+<<<<<<< HEAD
                       ],
                     ),
                   ],
                 ),
+=======
+                      ),
+
+                    ],
+                  ),
+
+                ],
+              )
+>>>>>>> 7bc2898ad137b3f52938f71dcefe05a6c7a7f0d4
               ),
             ),
           ),
