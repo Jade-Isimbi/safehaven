@@ -4,6 +4,7 @@ import '../../../../shared/widgets/logout_button.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
 import '../providers/coping_tool_provider.dart';
 import '../../data/models/coping_tool_model.dart';
+import '../../../bookmarks/presentation/providers/bookmark_provider.dart';
 
 
 
@@ -15,24 +16,12 @@ class CopingPage extends StatefulWidget {
 }
 
 class _CopingPageState extends State<CopingPage> {
-  final Set<int> _bookmarked = {};
-
   @override
   void initState() {
     super.initState();
     // Load coping tools when the page initializes
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<CopingToolProvider>().loadCopingTools();
-    });
-  }
-
-  void _toggleBookmark(int index) {
-    setState(() {
-      if (_bookmarked.contains(index)) {
-        _bookmarked.remove(index);
-      } else {
-        _bookmarked.add(index);
-      }
     });
   }
 
@@ -225,96 +214,116 @@ class _CopingPageState extends State<CopingPage> {
                       separatorBuilder: (_, __) => const SizedBox(height: 16),
                       itemBuilder: (context, index) {
                         final tool = copingTools[index];
-                        final isBookmarked = _bookmarked.contains(index);
-                        return GestureDetector(
-                          onTap: () => _openTool(context, tool),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: Color(0xFFF2AFBC), width: 1.5),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.pink.withOpacity(0.08),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 16),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                        return Consumer<BookmarkProvider>(
+                          builder: (context, bookmarkProvider, child) {
+                            return FutureBuilder<bool>(
+                              future: bookmarkProvider.isBookmarked(
+                                itemId: tool.id,
+                                type: 'copingTool',
+                              ),
+                              builder: (context, snapshot) {
+                                final isBookmarked = snapshot.data ?? false;
+                                
+                                return GestureDetector(
+                                  onTap: () => _openTool(context, tool),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: Border.all(color: Color(0xFFF2AFBC), width: 1.5),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.pink.withOpacity(0.08),
+                                          blurRadius: 8,
+                                          offset: const Offset(0, 4),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
                                       children: [
-                                        Text(
-                                          tool.title.isNotEmpty ? tool.title : 'Untitled',
-                                          style: const TextStyle(
-                                            fontFamily: 'Inter',
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xFF2D1E2F),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 16),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  tool.title.isNotEmpty ? tool.title : 'Untitled',
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xFF2D1E2F),
+                                                  ),
+                                                ),
+                                                if (tool.description.isNotEmpty) ...[
+                                                  const SizedBox(height: 4),
+                                                  Text(
+                                                    tool.description,
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Color(0xFFB05A7A),
+                                                    ),
+                                                    maxLines: 2,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                                if (tool.type.isNotEmpty) ...[
+                                                  const SizedBox(height: 4),
+                                                  Container(
+                                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFFF2AFBC),
+                                                      borderRadius: BorderRadius.circular(8),
+                                                    ),
+                                                    child: Text(
+                                                      tool.type,
+                                                      style: const TextStyle(
+                                                        fontSize: 10,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Color(0xFF9E182B),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                        if (tool.description.isNotEmpty) ...[
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            tool.description,
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                              color: Color(0xFFB05A7A),
-                                            ),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ],
-                                        if (tool.type.isNotEmpty) ...[
-                                          const SizedBox(height: 4),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFFF2AFBC),
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                            child: Text(
-                                              tool.type,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xFF9E182B),
-                                              ),
+                                        Container(
+                                          height: 56,
+                                          width: 56,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFF2AFBC),
+                                            borderRadius: const BorderRadius.only(
+                                              topRight: Radius.circular(16),
+                                              bottomRight: Radius.circular(16),
                                             ),
                                           ),
-                                        ],
+                                          child: IconButton(
+                                            icon: Icon(
+                                              isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+                                              color: isBookmarked ? Color(0xFF9E182B) : Color(0xFF9E182B),
+                                              size: 28,
+                                            ),
+                                            onPressed: () {
+                                              bookmarkProvider.toggleBookmark(
+                                                itemId: tool.id,
+                                                title: tool.title,
+                                                description: tool.description,
+                                                type: 'copingTool',
+                                              );
+                                            },
+                                            tooltip: isBookmarked ? 'Remove Bookmark' : 'Bookmark',
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  height: 56,
-                                  width: 56,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFF2AFBC),
-                                    borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(16),
-                                      bottomRight: Radius.circular(16),
-                                    ),
-                                  ),
-                                  child: IconButton(
-                                    icon: Icon(
-                                      isBookmarked ? Icons.bookmark : Icons.bookmark_border,
-                                      color: isBookmarked ? Color(0xFF9E182B) : Color(0xFF9E182B),
-                                      size: 28,
-                                    ),
-                                    onPressed: () => _toggleBookmark(index),
-                                    tooltip: isBookmarked ? 'Remove Bookmark' : 'Bookmark',
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                                );
+                              },
+                            );
+                          },
                         );
                       },
                     ),
