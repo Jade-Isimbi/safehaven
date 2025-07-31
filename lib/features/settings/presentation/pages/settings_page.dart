@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../shared/widgets/logout_button.dart';
+import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -72,6 +73,7 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: const CustomBottomNavigationBar(currentIndex: 3),
     );
   }
 } 

@@ -15,21 +15,25 @@ class _HelpVictimPageState extends State<HelpVictimPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F3E7), // Light cream background
+      backgroundColor: const Color(0xFFF5F5DC),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF5F3E7),
+        backgroundColor: Colors.transparent,
         elevation: 0,
+        toolbarHeight: 80,
         leading: IconButton(
           icon: const Icon(
-            Icons.keyboard_arrow_down,
-            color: Colors.black,
-            size: 28,
+            Icons.arrow_back,
+            color: Color(0xFF9E182B),
+            size: 24,
           ),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.favorite_border, color: Colors.black),
+            icon: Icon(
+              isFavorited ? Icons.favorite : Icons.favorite_border, 
+              color: isFavorited ? Color(0xFF9E182B) : Color(0xFF9E182B)
+            ),
             onPressed: () {
               setState(() {
                 isFavorited = !isFavorited;
@@ -37,7 +41,7 @@ class _HelpVictimPageState extends State<HelpVictimPage> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.download, color: Colors.black),
+            icon: const Icon(Icons.download, color: Color(0xFF9E182B)),
             onPressed: () {
               // Handle download
             },
@@ -83,11 +87,12 @@ class _HelpVictimPageState extends State<HelpVictimPage> {
 
             // Title
             const Text(
-              'Help a victim',
+              'Help a Victim',
               style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Colors.black87,
+                fontSize: 20,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF9E182B),
               ),
             ),
 
@@ -104,7 +109,7 @@ class _HelpVictimPageState extends State<HelpVictimPage> {
                   },
                   icon: const Icon(
                     Icons.skip_previous,
-                    color: Colors.black,
+                    color: Color(0xFF9E182B),
                     size: 32,
                   ),
                 ),
@@ -121,7 +126,7 @@ class _HelpVictimPageState extends State<HelpVictimPage> {
                     height: 60,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.black,
+                      color: Color(0xFF9E182B),
                     ),
                     child: Icon(
                       isPlaying ? Icons.pause : Icons.play_arrow,
@@ -138,7 +143,7 @@ class _HelpVictimPageState extends State<HelpVictimPage> {
                   },
                   icon: const Icon(
                     Icons.skip_next,
-                    color: Colors.black,
+                    color: Color(0xFF9E182B),
                     size: 32,
                   ),
                 ),
@@ -157,7 +162,7 @@ class _HelpVictimPageState extends State<HelpVictimPage> {
                   },
                   icon: const Icon(
                     Icons.share,
-                    color: Colors.black54,
+                    color: Color(0xFF9E182B),
                     size: 24,
                   ),
                 ),
@@ -169,7 +174,7 @@ class _HelpVictimPageState extends State<HelpVictimPage> {
                   },
                   icon: Icon(
                     isFavorited ? Icons.star : Icons.star_border,
-                    color: isFavorited ? Colors.amber : Colors.black54,
+                    color: isFavorited ? Color(0xFF9E182B) : Color(0xFF9E182B),
                     size: 24,
                   ),
                 ),

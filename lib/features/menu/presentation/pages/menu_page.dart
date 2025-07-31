@@ -3,6 +3,7 @@ import '../widgets/menu_card.dart';
 import '../../../rights/presentation/pages/rights_page.dart';
 import '../../../coping/presentation/pages/coping_page.dart';
 import '../../../support/presentation/pages/support_page.dart';
+import '../../../gbv/presentation/pages/gbv_page.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
 import '../../../../shared/widgets/logout_button.dart';
 
@@ -35,7 +36,17 @@ class MenuPage extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 children: [
-                  const MenuCard(title: "Understanding GBV", label: "Education"),
+                  MenuCard(
+                    title: "Understanding GBV",
+                    label: "Education",
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const GbvPage(),
+                        ),
+                      );
+                    },
+                  ),
                   const SizedBox(height: 16),
                   MenuCard(
                     title: "Coping & Mental Health tools",

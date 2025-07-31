@@ -116,14 +116,13 @@ class _CopingPageState extends State<CopingPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 24.0, left: 16, right: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const LogoutButton(),
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundImage: AssetImage('assets/images/app_icon.png'),
+              padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
                   ),
                 ],
               ),

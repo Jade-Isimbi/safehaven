@@ -1,94 +1,287 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
+import '../../../../shared/widgets/logout_button.dart';
+import '../providers/educational_content_provider.dart';
 import 'helpvictim_page.dart';
+import 'signs_gbv_page.dart';
+import 'educational_content_detail_page.dart';
 
-class GbvPage extends StatelessWidget {
+class GbvPage extends StatefulWidget {
   const GbvPage({super.key});
+
+  @override
+  State<GbvPage> createState() => _GbvPageState();
+}
+
+class _GbvPageState extends State<GbvPage> {
+  @override
+  void initState() {
+    super.initState();
+    // Load educational content when the page initializes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<EducationalContentProvider>().loadEducationalContent();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F3E7), // Light cream background
+      backgroundColor: const Color(0xFFF5F5DC),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF5F3E7),
+        backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Understanding GBV',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
+        toolbarHeight: 80,
+        leading: const LogoutButton(),
         actions: [
-          CircleAvatar(
-            radius: 16,
-            backgroundColor: Colors.brown.shade300,
-            child: const Icon(Icons.person, color: Colors.white, size: 20),
+          Padding(
+            padding: const EdgeInsets.only(right: 20, top: 10),
+            child: CircleAvatar(
+              radius: 24,
+              backgroundImage: AssetImage('assets/images/app_icon.png'),
+            ),
           ),
-          const SizedBox(width: 16),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+      body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Understanding GBV',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                color: Colors.pink,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Text(
+                    'Understanding GBV',
+                    style: TextStyle(
+                      color: Color(0xFFB05A7A),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                    ),
+                  ),
+                ),
               ),
             ),
-            const SizedBox(height: 30),
-
-            // Menu Items
-            _buildMenuItem(
-              context,
-              'Signs of GBV',
-              Icons.bookmark_border,
-              false,
-              () {
-                // Navigate to Signs of GBV page
-              },
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Center(
+                child: Text(
+                  'Education and awareness about gender-based violence.',
+                  style: TextStyle(
+                    color: Color(0xFFB05A7A),
+                    fontStyle: FontStyle.italic,
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
+            Expanded(
+              child: Consumer<EducationalContentProvider>(
+                builder: (context, provider, child) {
+                  if (provider.isLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: Color(0xFF9E182B),
+                      ),
+                    );
+                  }
 
-            _buildMenuItem(
-              context,
-              'Types of GBV',
-              Icons.bookmark_border,
-              false,
-              () {
-                // Navigate to Types of GBV page
-              },
+                  if (provider.error != null) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.error_outline,
+                            size: 64,
+                            color: Color(0xFF9E182B),
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'Error loading content',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF9E182B),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            provider.error!,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Color(0xFFB05A7A),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: () {
+                              provider.loadEducationalContent();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFF9E182B),
+                              foregroundColor: Colors.white,
+                            ),
+                            child: const Text('Retry'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+
+                  final educationalContent = provider.educationalContent;
+                  
+                  if (educationalContent.isEmpty) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.book_outlined,
+                            size: 64,
+                            color: Color(0xFF9E182B),
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'No educational content available',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF9E182B),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Check back later for new content',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Color(0xFFB05A7A),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: ListView.separated(
+                      itemCount: educationalContent.length,
+                      separatorBuilder: (_, __) => const SizedBox(height: 16),
+                      itemBuilder: (context, index) {
+                        final content = educationalContent[index];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EducationalContentDetailPage(
+                                  contentId: content.id,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(color: Color(0xFFF2AFBC), width: 1.5),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.pink.withOpacity(0.08),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          content.title.isNotEmpty ? content.title : 'Untitled',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF9E182B),
+                                            fontFamily: 'Inter',
+                                          ),
+                                        ),
+                                      ),
+                                      if (content.language.isNotEmpty)
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFF2AFBC),
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: Text(
+                                            content.language,
+                                            style: const TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xFF9E182B),
+                                            ),
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                  if (content.description.isNotEmpty) ...[
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      content.description,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Color(0xFF2D1E2F),
+                                        height: 1.4,
+                                      ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                  const SizedBox(height: 12),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 16,
+                                        color: Color(0xFF9E182B),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        'Read more',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF9E182B),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
-            const SizedBox(height: 16),
-
-            _buildMenuItem(
-              context,
-              'Impact of GBV',
-              Icons.bookmark_border,
-              false,
-              () {
-                // Navigate to Impact of GBV page
-              },
-            ),
-            const SizedBox(height: 16),
-
-            _buildMenuItem(context, 'Help a Victim', Icons.bookmark, true, () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HelpVictimPage()),
-              );
-            }),
           ],
         ),
       ),
@@ -98,48 +291,5 @@ class GbvPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(
-    BuildContext context,
-    String title,
-    IconData icon,
-    bool isSelected,
-    VoidCallback onTap,
-  ) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: isSelected ? Colors.black : Colors.black87,
-                ),
-              ),
-            ),
-            Icon(
-              icon,
-              color: isSelected ? Colors.black : Colors.grey,
-              size: 24,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+
 }

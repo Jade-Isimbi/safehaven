@@ -22,16 +22,20 @@ class _RatingPageState extends State<RatingPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 80,
-        leading: Row(
-          children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back, color: Color(0xFFB05A7A)),
-              onPressed: () {
-                Navigator.of(context).pushReplacementNamed('/menu');
-              },
-            ),
-            const LogoutButton(),
-          ],
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                icon: Icon(Icons.arrow_back, color: Color(0xFFB05A7A)),
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed('/menu');
+                },
+              ),
+              const LogoutButton(),
+            ],
+          ),
         ),
         actions: [
           Padding(
