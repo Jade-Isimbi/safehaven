@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:safehaven/features/rating/data/models/rating_model.dart';
 import 'package:safehaven/features/rating/presentation/providers/rating_provider.dart';
 class RatingPage extends StatefulWidget {
-  const RatingPage({Key? key}) : super(key: key);
+  const RatingPage({super.key});
 
   @override
   State<RatingPage> createState() => _RatingPageState();
@@ -173,28 +173,6 @@ class _RatingPageState extends State<RatingPage> {
                 ),
               ),
               const SizedBox(height: 20),
-<<<<<<< HEAD
-              SizedBox(
-                width: 182,
-                height: 61,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Submit action
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF9E182B),
-                    foregroundColor: Color(0xFFF5F5DC),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50)
-                    ),
-                  ),
-                  child: const Text('SUBMIT',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 20,
-                    ),
-                  ),
-=======
               Align(
                 alignment: Alignment.centerRight,
                 child: Consumer<RatingProvider>(
@@ -273,7 +251,6 @@ class _RatingPageState extends State<RatingPage> {
                             ),
                     );
                   },
->>>>>>> Ineza
                 ),
               ),
               const SizedBox(height: 24),
@@ -281,9 +258,6 @@ class _RatingPageState extends State<RatingPage> {
           ),
         ),
       ),
-<<<<<<< HEAD
-      bottomNavigationBar: const CustomBottomNavigationBar(currentIndex: 2),
-=======
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
@@ -297,7 +271,6 @@ class _RatingPageState extends State<RatingPage> {
         type: BottomNavigationBarType.fixed,
         onTap: (index) {},
       ),
->>>>>>> Ineza
     );
   }
 }
