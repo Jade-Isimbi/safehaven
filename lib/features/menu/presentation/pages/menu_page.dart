@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../widgets/menu_search_bar.dart';
 import '../widgets/menu_card.dart';
 import '../../../rights/presentation/pages/rights_page.dart';
+import '../../../coping/presentation/pages/coping_page.dart';
 import '../../../support/presentation/pages/support_page.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
 
@@ -15,13 +15,12 @@ class MenuPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Top Row: Search Bar + Avatar
+            // Top Row: Avatar only
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Expanded(child: MenuSearchBar()),
-                  const SizedBox(width: 12),
                   CircleAvatar(
                     radius: 24,
                     backgroundImage: AssetImage('assets/profile.png'),
@@ -36,7 +35,17 @@ class MenuPage extends StatelessWidget {
                 children: [
                   const MenuCard(title: "Understanding GBV", label: "Education"),
                   const SizedBox(height: 16),
-                  const MenuCard(title: "Coping & Mental Health tools", label: "Wellness"),
+                  MenuCard(
+                    title: "Coping & Mental Health tools",
+                    label: "Wellness",
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const CopingPage(),
+                        ),
+                      );
+                    },
+                  ),
                   const SizedBox(height: 16),
                   MenuCard(
                     title: "Know Your Rights",
@@ -67,7 +76,7 @@ class MenuPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(currentIndex: 1),
+      bottomNavigationBar: const CustomBottomNavigationBar(currentIndex: 0),
     );
   }
 } 

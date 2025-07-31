@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart'; 
 // import 'package:google_fonts/google_fonts.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -15,19 +15,25 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   bool _emailSent = false;
 
   Future<void> _sendResetEmail() async {
-    // setState(() => _isLoading = true);
-    // try {
-    //   await FirebaseAuth.instance.sendPasswordResetEmail(
-    //     email: _emailController.text.trim(),
-    //   );
-    //   setState(() => _emailSent = true);
-    // } on FirebaseAuthException catch (e) {
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(content: Text(e.message ?? 'Password reset failed')),
-    //   );
-    // } finally {
-    //   setState(() => _isLoading = false);
-    // }
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: _emailController.text.trim(),
+      );
+      setState(() {
+        _emailSent = true;
+      });
+    } on FirebaseAuthException catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(error.message ?? 'Failed to send reset email')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override

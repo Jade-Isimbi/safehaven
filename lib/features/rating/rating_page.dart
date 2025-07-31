@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import '../../shared/widgets/custom_bottom_navigation_bar.dart';
 
 class RatingPage extends StatefulWidget {
   const RatingPage({Key? key}) : super(key: key);
@@ -20,12 +21,18 @@ class _RatingPageState extends State<RatingPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 80,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Color(0xFFB05A7A)),
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed('/menu');
+          },
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20, top: 10),
             child: CircleAvatar(
               radius: 24,
-              backgroundImage: AssetImage('assets/images/User.png'),
+              backgroundImage: AssetImage('assets/profile.png'),
             ),
           ),
         ],
@@ -36,25 +43,38 @@ class _RatingPageState extends State<RatingPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 8),
-              const Text(
-                'How was your experience\nusing the app?',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFB97A7A),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Text(
+                      'Rate Your Experience',
+                      style: TextStyle(
+                        color: Color(0xFFB05A7A),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(height: 12),
-              const Text(
-                'Your feedback helps us support more people better!',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontStyle: FontStyle.italic,
-                  color: Color(0xFFB97A7A),
-                  fontFamily: 'Kotta One',
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Center(
+                  child: Text(
+                    'Your feedback helps us support more people better!',
+                    style: TextStyle(
+                      color: Color(0xFFB05A7A),
+                      fontStyle: FontStyle.italic,
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               const SizedBox(height: 24),
@@ -83,7 +103,7 @@ class _RatingPageState extends State<RatingPage> {
                   "Anything you'd like to tell us?",
                   style: TextStyle(
                     fontSize: 16,
-                    color: Color(0xFFB97A7A),
+                    color: Color(0xFFB05A7A),
                     fontFamily: 'Kotta One',
                   ),
                 ),
@@ -105,25 +125,24 @@ class _RatingPageState extends State<RatingPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.centerRight,
+              SizedBox(
+                width: 182,
+                height: 61,
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFB97A7A),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8), // smaller padding
-                  ),
                   onPressed: () {
                     // Submit action
                   },
-                  child: const Text(
-                    'SUBMIT',
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF9E182B),
+                    foregroundColor: Color(0xFFF5F5DC),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)
+                    ),
+                  ),
+                  child: const Text('SUBMIT',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontFamily: 'Inter',
+                      fontSize: 20,
                     ),
                   ),
                 ),
@@ -133,21 +152,7 @@ class _RatingPageState extends State<RatingPage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
-        ],
-        selectedItemColor: Color(0xFFB97A7A),
-        unselectedItemColor: Colors.grey,
-        backgroundColor: Colors.white,
-        type: BottomNavigationBarType.fixed,
-        onTap: (index) {
-          
-        },
-      ),
+      bottomNavigationBar: const CustomBottomNavigationBar(currentIndex: 2),
     );
   }
 }
