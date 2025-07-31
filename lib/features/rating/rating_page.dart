@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:safehaven/features/rating/data/models/rating_model.dart';
+import 'package:safehaven/features/rating/presentation/providers/rating_provider.dart';
 
 class RatingPage extends StatefulWidget {
   const RatingPage({Key? key}) : super(key: key);
@@ -11,6 +15,14 @@ class RatingPage extends StatefulWidget {
 class _RatingPageState extends State<RatingPage> {
   double _rating = 4;
   final TextEditingController _controller = TextEditingController();
+  String? _selectedRegion;
+  final List<String> _regions = [
+    'Kigali',
+    'Northern',
+    'Southern',
+    'Eastern',
+    'Western',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -76,12 +88,38 @@ class _RatingPageState extends State<RatingPage> {
                   });
                 },
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 24),
+              // Region Dropdown
+              DropdownButtonFormField<String>(
+                value: _selectedRegion,
+                hint: const Text('Select your region'),
+                items: _regions.map((region) {
+                  return DropdownMenuItem(
+                    value: region,
+                    child: Text(region),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedRegion = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                ),
+              ),
+              const SizedBox(height: 16),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Anything you'd like to tell us?",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Color(0xFFB97A7A),
                     fontFamily: 'Kotta One',
@@ -107,25 +145,82 @@ class _RatingPageState extends State<RatingPage> {
               const SizedBox(height: 20),
               Align(
                 alignment: Alignment.centerRight,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFB97A7A),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8), // smaller padding
-                  ),
-                  onPressed: () {
-                    // Submit action
+                child: Consumer<RatingProvider>(
+                  builder: (context, provider, child) {
+                    return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFB97A7A),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                      ),
+                      onPressed: provider.isLoading
+                          ? null
+                          : () async {
+                              final message = _controller.text.trim();
+                              final rating = _rating.toString();
+                              final region = _selectedRegion ?? '';
+                              final userID = FirebaseAuth.instance.currentUser?.uid ?? 'anonymous';
+
+                              if (_selectedRegion == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Please select your region.')),
+                                );
+                                return;
+                              }
+
+                              if (message.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Please enter a message.')),
+                                );
+                                return;
+                              }
+
+                              final ratingModel = RatingModel(
+                                id: '',
+                                message: message,
+                                rating: rating,
+                                region: region,
+                                userID: userID,
+                              );
+
+                              await provider.submitRating(ratingModel);
+
+                              if (provider.error == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Thank you for your feedback!')),
+                                );
+                                _controller.clear();
+                                setState(() {
+                                  _rating = 4;
+                                  _selectedRegion = null;
+                                });
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Failed to submit: \\${provider.error}')),
+                                );
+                              }
+                            },
+                      child: provider.isLoading
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : const Text(
+                              'SUBMIT',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                    );
                   },
-                  child: const Text(
-                    'SUBMIT',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
                 ),
               ),
               const SizedBox(height: 24),
@@ -140,13 +235,11 @@ class _RatingPageState extends State<RatingPage> {
           BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
         ],
-        selectedItemColor: Color(0xFFB97A7A),
+        selectedItemColor: const Color(0xFFB97A7A),
         unselectedItemColor: Colors.grey,
         backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
-        onTap: (index) {
-          
-        },
+        onTap: (index) {},
       ),
     );
   }
