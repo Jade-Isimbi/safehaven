@@ -228,7 +228,7 @@ class _RatingPageState extends State<RatingPage> {
                                 });
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Failed to submit: \\${provider.error}')),
+                                  SnackBar(content: Text('Failed to submit: ${provider.error}')),
                                 );
                               }
                             },
