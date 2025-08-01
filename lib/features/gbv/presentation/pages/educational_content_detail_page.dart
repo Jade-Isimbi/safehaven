@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../../../shared/widgets/logout_button.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
 import '../providers/educational_content_provider.dart';
+import '../../../bookmarks/presentation/providers/bookmark_provider.dart';
 
 class EducationalContentDetailPage extends StatefulWidget {
   final String contentId;
@@ -263,29 +264,51 @@ class _EducationalContentDetailPageState extends State<EducationalContentDetailP
                   const SizedBox(height: 24),
                   
                   // Bookmark Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        // TODO: Implement bookmark functionality
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Bookmark functionality coming soon!'),
-                            backgroundColor: Color(0xFF9E182B),
-                          ),
-                        );
-                      },
-                      icon: const Icon(Icons.bookmark_border),
-                      label: const Text('Bookmark'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF9E182B),
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                  Consumer<BookmarkProvider>(
+                    builder: (context, bookmarkProvider, child) {
+                      return FutureBuilder<bool>(
+                        future: bookmarkProvider.isBookmarked(
+                          itemId: content.id,
+                          type: 'educationalContent',
                         ),
-                      ),
-                    ),
+                        builder: (context, snapshot) {
+                          final isBookmarked = snapshot.data ?? false;
+                          
+                          return SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                bookmarkProvider.toggleBookmark(
+                                  itemId: content.id,
+                                  title: content.title,
+                                  description: content.description,
+                                  type: 'educationalContent',
+                                );
+                                
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      isBookmarked ? 'Removed from bookmarks' : 'Added to bookmarks',
+                                    ),
+                                    backgroundColor: Color(0xFF9E182B),
+                                  ),
+                                );
+                              },
+                              icon: Icon(isBookmarked ? Icons.bookmark : Icons.bookmark_border),
+                              label: Text(isBookmarked ? 'Remove Bookmark' : 'Bookmark'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: isBookmarked ? Color(0xFFF2AFBC) : Color(0xFF9E182B),
+                                foregroundColor: isBookmarked ? Color(0xFF9E182B) : Colors.white,
+                                padding: const EdgeInsets.symmetric(vertical: 12),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                 ],
               ),

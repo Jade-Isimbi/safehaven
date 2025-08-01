@@ -6,15 +6,118 @@ service cloud.firestore {
       return url.matches('^https?://.*');
     }
     
+    // Function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Function to check if user owns the document
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
     // Rights collection rules
     match /rightsContent/{document} {
-      allow read: if true; // Anyone can read rights
-      allow write: if request.auth != null; // Only authenticated users can write
+      allow read: if true; // Anyone can read rights content
+      allow write: if isAuthenticated(); // Only authenticated users can write
       
       // Validate URL field if present
       allow create, update: if 
-        request.auth != null &&
+        isAuthenticated() &&
         (resource == null || resource.data.url == null || isValidUrl(resource.data.url));
+    }
+    
+    // Educational content collection rules
+    match /educationalContent/{document} {
+      allow read: if true; // Anyone can read educational content
+      allow write: if isAuthenticated(); // Only authenticated users can write
+      
+      // Validate required fields
+      allow create, update: if 
+        isAuthenticated() &&
+        resource.data.keys().hasAll(['title', 'description', 'content', 'language']) &&
+        resource.data.title is string &&
+        resource.data.description is string &&
+        resource.data.content is string &&
+        resource.data.language is string;
+    }
+    
+    // Coping tools collection rules
+    match /copingTools/{document} {
+      allow read: if true; // Anyone can read coping tools
+      allow write: if isAuthenticated(); // Only authenticated users can write
+      
+      // Validate required fields
+      allow create, update: if 
+        isAuthenticated() &&
+        resource.data.keys().hasAll(['title', 'description', 'content', 'language', 'type']) &&
+        resource.data.title is string &&
+        resource.data.description is string &&
+        resource.data.content is string &&
+        resource.data.language is string &&
+        resource.data.type is string;
+    }
+    
+    // Support directory collection rules
+    match /supportDirectory/{document} {
+      allow read: if true; // Anyone can read support services
+      allow write: if isAuthenticated(); // Only authenticated users can write
+      
+      // Validate required fields
+      allow create, update: if 
+        isAuthenticated() &&
+        resource.data.keys().hasAll(['name', 'description']) &&
+        resource.data.name is string &&
+        resource.data.description is string;
+    }
+    
+    // Bookmarks collection rules - USER-SPECIFIC
+    match /bookmarks/{document} {
+      // Users can only read their own bookmarks
+      allow read: if isOwner(resource.data.userId);
+      
+      // Users can only create bookmarks for themselves
+      allow create: if 
+        isAuthenticated() &&
+        request.resource.data.userId == request.auth.uid &&
+        request.resource.data.keys().hasAll(['userId', 'itemId', 'title', 'description', 'type']) &&
+        request.resource.data.userId is string &&
+        request.resource.data.itemId is string &&
+        request.resource.data.title is string &&
+        request.resource.data.description is string &&
+        request.resource.data.type is string;
+      
+      // Users can only update their own bookmarks
+      allow update: if 
+        isOwner(resource.data.userId) &&
+        request.resource.data.userId == request.auth.uid;
+      
+      // Users can only delete their own bookmarks
+      allow delete: if isOwner(resource.data.userId);
+    }
+    
+    // Users collection rules
+    match /users/{userId} {
+      // Users can only read/write their own data
+      allow read, write: if isOwner(userId);
+    }
+    
+    // Ratings collection rules
+    match /ratings/{document} {
+      allow read: if true; // Anyone can read ratings
+      allow create: if isAuthenticated(); // Only authenticated users can create ratings
+      allow update, delete: if isAuthenticated() && request.auth.uid == resource.data.userId;
+    }
+    
+    // Podcasts collection rules
+    match /podcasts/{document} {
+      allow read: if true; // Anyone can read podcasts
+      allow write: if isAuthenticated(); // Only authenticated users can write
+    }
+    
+    // Default rule - deny all other access
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 } 

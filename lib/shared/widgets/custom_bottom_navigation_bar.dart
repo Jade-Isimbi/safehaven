@@ -3,6 +3,7 @@ import '../../features/menu/presentation/pages/menu_page.dart';
 import '../../features/search/presentation/pages/search_page.dart';
 import '../../features/rating/rating_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
+import '../../features/bookmarks/presentation/pages/bookmarks_page.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
@@ -39,6 +40,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const RatingPage()),
           );
         } else if (index == 3) {
+          // Navigate to bookmarks page when bookmark icon is tapped
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const BookmarksPage()),
+          );
+        } else if (index == 4) {
           // Navigate to settings page when settings icon is tapped
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const SettingsPage()),
@@ -51,6 +57,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
         BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
         BottomNavigationBarItem(icon: Icon(Icons.star), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: ''),
         BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
       ],
     );

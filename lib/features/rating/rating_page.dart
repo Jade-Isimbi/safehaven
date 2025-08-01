@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:safehaven/features/rating/data/models/rating_model.dart';
 import '../../shared/widgets/custom_bottom_navigation_bar.dart';
 import '../../shared/widgets/logout_button.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:safehaven/features/rating/data/models/rating_model.dart';
 import 'package:safehaven/features/rating/presentation/providers/rating_provider.dart';
 class RatingPage extends StatefulWidget {
   const RatingPage({super.key});
@@ -207,15 +205,11 @@ class _RatingPageState extends State<RatingPage> {
                                 return;
                               }
 
-                              final ratingModel = RatingModel(
-                                id: '',
-                                message: message,
-                                rating: rating,
-                                region: region,
-                                userID: userID,
-                              );
+                              // Set the rating and comment in the provider
+                              provider.setRating(_rating);
+                              provider.setComment(message);
 
-                              await provider.submitRating(ratingModel);
+                              await provider.submitRating();
 
                               if (provider.error == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -258,19 +252,7 @@ class _RatingPageState extends State<RatingPage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
-        ],
-        selectedItemColor: const Color(0xFFB97A7A),
-        unselectedItemColor: Colors.grey,
-        backgroundColor: Colors.white,
-        type: BottomNavigationBarType.fixed,
-        onTap: (index) {},
-      ),
+      bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 2),
     );
   }
 }
