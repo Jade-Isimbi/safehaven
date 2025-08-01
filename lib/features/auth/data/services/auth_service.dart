@@ -1,13 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Get current user
   User? get currentUser => _auth.currentUser;
 
   // Sign up with email and password
-  Future<UserCredential> signUpWithEmailAndPassword({
+  Future<User?> signUpWithEmailAndPassword({
     required String email,
     required String password,
     String? displayName,
@@ -17,15 +19,30 @@ class AuthService {
         email: email,
         password: password,
       );
-      
-      // Update display name if provided
-      if (displayName != null && displayName.isNotEmpty) {
-        await userCredential.user?.updateDisplayName(displayName);
+
+      User? user = userCredential.user;
+
+      if (user != null) {
+        // Update display name
+        if (displayName != null && displayName.isNotEmpty) {
+          await user.updateDisplayName(displayName);
+        }
+
+        // Save user info to Firestore
+        await _firestore.collection('users').doc(user.uid).set({
+          'uid': user.uid,
+          'name': displayName ?? '',
+          'email': email,
+          'createdAt': FieldValue.serverTimestamp(),
+          'profilePicture': null,
+        });
+
+        return user;
       }
-      
-      return userCredential;
-    } on FirebaseAuthException catch (e) {
-      throw _handleAuthException(e);
+
+      return null;
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -84,4 +101,4 @@ class AuthService {
 
   // Stream of auth state changes
   Stream<User?> get authStateChanges => _auth.authStateChanges();
-} 
+}

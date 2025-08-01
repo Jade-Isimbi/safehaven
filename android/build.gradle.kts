@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 buildscript {
     repositories {
         google()
@@ -7,14 +6,6 @@ buildscript {
     dependencies {
         classpath("com.google.gms:google-services:4.4.2")
     }
-=======
-plugins {
-  // ...
-
-  // Add the dependency for the Google services Gradle plugin
-  id("com.google.gms.google-services") version "4.4.3" apply false
-
->>>>>>> 7bc2898ad137b3f52938f71dcefe05a6c7a7f0d4
 }
 
 allprojects {

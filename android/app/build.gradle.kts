@@ -3,10 +3,7 @@ plugins {
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
-<<<<<<< HEAD
     // Google Services plugin for Firebase
-=======
->>>>>>> 7bc2898ad137b3f52938f71dcefe05a6c7a7f0d4
     id("com.google.gms.google-services")
 }
 
@@ -29,11 +26,7 @@ android {
         applicationId = "com.example.safehaven"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-<<<<<<< HEAD
         minSdk = 23
-=======
-        minSdk = 21
->>>>>>> 7bc2898ad137b3f52938f71dcefe05a6c7a7f0d4
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
