@@ -1,1 +1,1 @@
-screenshots of the appadd
+screenshots of the app
