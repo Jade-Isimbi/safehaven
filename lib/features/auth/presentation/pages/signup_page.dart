@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../../data/services/auth_service.dart';
 
 class SignupPage extends StatefulWidget {
@@ -97,6 +96,11 @@ class _SignupPageState extends State<SignupPage> {
                         controller: _nameController,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
+                          hintText: 'Enter your full name',
+                          hintStyle: TextStyle(
+                            color: Colors.grey[600],
+                            fontFamily: 'Inter',
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(
@@ -130,6 +134,11 @@ class _SignupPageState extends State<SignupPage> {
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
+                          hintText: 'Enter your email address',
+                          hintStyle: TextStyle(
+                            color: Colors.grey[600],
+                            fontFamily: 'Inter',
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 2),
@@ -162,6 +171,11 @@ class _SignupPageState extends State<SignupPage> {
                         controller: _passwordController,
                         obscureText: _obscurePassword,
                         decoration: InputDecoration(
+                          hintText: 'Enter your password (min. 8 characters)',
+                          hintStyle: TextStyle(
+                            color: Colors.grey[600],
+                            fontFamily: 'Inter',
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 2),

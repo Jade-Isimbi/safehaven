@@ -14,7 +14,6 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
   List<String> _searchResults = [];
-  bool _isSearching = false;
 
   @override
   void dispose() {
@@ -24,7 +23,6 @@ class _SearchPageState extends State<SearchPage> {
 
   void _performSearch(String query) {
     setState(() {
-      _isSearching = true;
       // Simulate search results - replace with actual search logic
       if (query.isNotEmpty) {
         _searchResults = [
@@ -78,7 +76,7 @@ class _SearchPageState extends State<SearchPage> {
                   hintStyle: TextStyle(color: Colors.pink[200]),
                   prefixIcon: Icon(Icons.search, color: Colors.pink[200]),
                   filled: true,
-                  fillColor: Colors.white.withOpacity(0.9),
+                  fillColor: Colors.white.withValues(alpha: 0.9),
                   contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24),
@@ -136,7 +134,7 @@ class _SearchPageState extends State<SearchPage> {
                             border: Border.all(color: Colors.pink[100]!, width: 1),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.pink.withOpacity(0.08),
+                                color: Colors.pink.withValues(alpha: 0.08),
                                 blurRadius: 8,
                                 offset: const Offset(0, 2),
                               ),

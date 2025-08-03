@@ -9,9 +9,9 @@ class EducationalContentDetailPage extends StatefulWidget {
   final String contentId;
   
   const EducationalContentDetailPage({
-    Key? key,
+    super.key,
     required this.contentId,
-  }) : super(key: key);
+  });
 
   @override
   State<EducationalContentDetailPage> createState() => _EducationalContentDetailPageState();
@@ -128,7 +128,7 @@ class _EducationalContentDetailPageState extends State<EducationalContentDetailP
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.pink.withOpacity(0.08),
+                          color: Colors.pink.withValues(alpha: 0.08),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),

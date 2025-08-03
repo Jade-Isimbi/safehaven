@@ -288,7 +288,7 @@ class _RightCard extends StatelessWidget {
         border: Border.all(color: Colors.pink[100]!, width: 1.5),
         boxShadow: [
           BoxShadow(
-            color: Colors.pink.withOpacity(0.08),
+            color: Colors.pink.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),

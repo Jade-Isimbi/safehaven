@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart'; 
 // import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../../data/services/auth_service.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -24,17 +23,23 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       await _authService.sendPasswordResetEmail(
         _emailController.text.trim(),
       );
-      setState(() {
-        _emailSent = true;
-      });
+      if (mounted) {
+        setState(() {
+          _emailSent = true;
+        });
+      }
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(error.toString())),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error.toString())),
+        );
+      }
     } finally {
-      setState(() {
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 

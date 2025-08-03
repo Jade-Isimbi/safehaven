@@ -3,10 +3,9 @@ import 'package:provider/provider.dart';
 import '../../../../shared/widgets/logout_button.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
 import '../providers/bookmark_provider.dart';
-import '../../data/models/bookmark_model.dart';
 
 class BookmarksPage extends StatefulWidget {
-  const BookmarksPage({Key? key}) : super(key: key);
+  const BookmarksPage({super.key});
 
   @override
   State<BookmarksPage> createState() => _BookmarksPageState();
@@ -214,7 +213,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                             border: Border.all(color: Color(0xFFF2AFBC), width: 1.5),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.pink.withOpacity(0.08),
+                                color: Colors.pink.withValues(alpha: 0.08),
                                 blurRadius: 8,
                                 offset: const Offset(0, 4),
                               ),

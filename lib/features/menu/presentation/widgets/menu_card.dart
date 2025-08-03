@@ -23,7 +23,7 @@ class MenuCard extends StatelessWidget {
             border: Border.all(color: Colors.pink[100]!, width: 1.5),
             boxShadow: [
               BoxShadow(
-                color: Colors.pink.withOpacity(0.10),
+                color: Colors.pink.withValues(alpha: 0.10),
                 blurRadius: 18,
                 offset: const Offset(0, 8),
               ),
@@ -38,7 +38,7 @@ class MenuCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 14),
                   decoration: BoxDecoration(
-                    color: Colors.pink[100]?.withOpacity(0.5),
+                    color: Colors.pink[100]?.withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(

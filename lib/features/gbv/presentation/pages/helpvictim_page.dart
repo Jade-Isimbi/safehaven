@@ -191,7 +191,5 @@ class _HelpVictimPageState extends State<HelpVictimPage> {
     );
   }
 
-  Widget _buildBottomNavItem(IconData icon, Color color, bool isSelected) {
-    return Icon(icon, color: color, size: 28);
-  }
+
 }

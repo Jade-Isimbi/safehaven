@@ -14,7 +14,7 @@ class RightsService {
         return RightModel.fromMap(doc.id, doc.data() as Map<String, dynamic>);
       }).toList();
     } catch (e) {
-      print('Error fetching rights: $e');
+      // Error fetching rights: $e
       return [];
     }
   }
@@ -31,7 +31,7 @@ class RightsService {
       }
       return null;
     } catch (e) {
-      print('Error fetching right by ID: $e');
+      // Error fetching right by ID: $e
       return null;
     }
   }

@@ -19,7 +19,7 @@ class MenuSearchBar extends StatelessWidget {
           },
         ),
         filled: true,
-        fillColor: Colors.white.withOpacity(0.7),
+        fillColor: Colors.white.withValues(alpha: 0.7),
         contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),

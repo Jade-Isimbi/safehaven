@@ -3,7 +3,7 @@ import '../../../../shared/widgets/logout_button.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

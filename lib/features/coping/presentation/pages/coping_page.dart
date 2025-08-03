@@ -9,7 +9,7 @@ import '../../../bookmarks/presentation/providers/bookmark_provider.dart';
 
 
 class CopingPage extends StatefulWidget {
-  const CopingPage({Key? key}) : super(key: key);
+  const CopingPage({super.key});
 
   @override
   State<CopingPage> createState() => _CopingPageState();
@@ -233,7 +233,7 @@ class _CopingPageState extends State<CopingPage> {
                                       border: Border.all(color: Color(0xFFF2AFBC), width: 1.5),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.pink.withOpacity(0.08),
+                                          color: Colors.pink.withValues(alpha: 0.08),
                                           blurRadius: 8,
                                           offset: const Offset(0, 4),
                                         ),

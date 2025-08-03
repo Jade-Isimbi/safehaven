@@ -1,15 +1,5 @@
 
 import 'package:flutter/material.dart';
-import '../../../menu/presentation/pages/menu_page.dart';
-import '../../../gbv/presentation/pages/gbv_page.dart';
-import '../../../coping/presentation/pages/coping_page.dart';
-import '../../../rights/presentation/pages/rights_page.dart';
-import '../../../support/presentation/pages/support_page.dart';
-import '../../../settings/presentation/pages/settings_page.dart';
-import '../pages/signup_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import '../../../splash/presentation/pages/splash_page.dart';
-import '../../../onboarding/presentation/pages/onboarding_page.dart';
 import '../../data/services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
@@ -48,15 +38,21 @@ class _LoginPageState extends State<LoginPage> {
           email: email,
           password: password,
         );
-        Navigator.of(context).pushReplacementNamed('/menu');
+        if (mounted) {
+          Navigator.of(context).pushReplacementNamed('/menu');
+        }
       } catch (error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error.toString())),
-        );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(error.toString())),
+          );
+        }
       } finally {
-        setState(() {
-          _isLoading = false;
-        });
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
       }
     }
   }

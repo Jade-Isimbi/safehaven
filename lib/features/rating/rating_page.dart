@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../shared/widgets/custom_bottom_navigation_bar.dart';
 import '../../shared/widgets/logout_button.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:safehaven/features/rating/presentation/providers/rating_provider.dart';
 class RatingPage extends StatefulWidget {
   const RatingPage({super.key});
@@ -187,19 +186,17 @@ class _RatingPageState extends State<RatingPage> {
                           ? null
                           : () async {
                               final message = _controller.text.trim();
-                              final rating = _rating.toString();
-                              final region = _selectedRegion ?? '';
-                              final userID = FirebaseAuth.instance.currentUser?.uid ?? 'anonymous';
+                              final scaffoldMessenger = ScaffoldMessenger.of(context);
 
                               if (_selectedRegion == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
+                                scaffoldMessenger.showSnackBar(
                                   const SnackBar(content: Text('Please select your region.')),
                                 );
                                 return;
                               }
 
                               if (message.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
+                                scaffoldMessenger.showSnackBar(
                                   const SnackBar(content: Text('Please enter a message.')),
                                 );
                                 return;
@@ -211,19 +208,21 @@ class _RatingPageState extends State<RatingPage> {
 
                               await provider.submitRating();
 
-                              if (provider.error == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Thank you for your feedback!')),
-                                );
-                                _controller.clear();
-                                setState(() {
-                                  _rating = 4;
-                                  _selectedRegion = null;
-                                });
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Failed to submit: \\${provider.error}')),
-                                );
+                              if (mounted) {
+                                if (provider.error == null) {
+                                  scaffoldMessenger.showSnackBar(
+                                    const SnackBar(content: Text('Thank you for your feedback!')),
+                                  );
+                                  _controller.clear();
+                                  setState(() {
+                                    _rating = 4;
+                                    _selectedRegion = null;
+                                  });
+                                } else {
+                                  scaffoldMessenger.showSnackBar(
+                                    SnackBar(content: Text('Failed to submit: \\${provider.error}')),
+                                  );
+                                }
                               }
                             },
                       child: provider.isLoading

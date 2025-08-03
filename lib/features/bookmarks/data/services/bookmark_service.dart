@@ -134,7 +134,7 @@ class BookmarkService {
       return snapshot.docs.map((doc) {
         return BookmarkModel.fromMap(
           doc.id,
-          doc.data() as Map<String, dynamic>,
+          doc.data(),
         );
       }).toList();
     });

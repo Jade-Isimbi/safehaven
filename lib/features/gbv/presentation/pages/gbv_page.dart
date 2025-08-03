@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import '../../../../shared/widgets/custom_bottom_navigation_bar.dart';
 import '../../../../shared/widgets/logout_button.dart';
 import '../providers/educational_content_provider.dart';
-import 'helpvictim_page.dart';
-import 'signs_gbv_page.dart';
 import 'educational_content_detail_page.dart';
 
 class GbvPage extends StatefulWidget {
@@ -197,7 +195,7 @@ class _GbvPageState extends State<GbvPage> {
                               border: Border.all(color: Color(0xFFF2AFBC), width: 1.5),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.pink.withOpacity(0.08),
+                                  color: Colors.pink.withValues(alpha: 0.08),
                                   blurRadius: 8,
                                   offset: const Offset(0, 4),
                                 ),

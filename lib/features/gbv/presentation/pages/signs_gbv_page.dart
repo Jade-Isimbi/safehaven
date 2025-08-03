@@ -101,7 +101,7 @@ class SignsGbvPage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Color(0xFFF2AFBC).withOpacity(0.3),
+                  color: Color(0xFFF2AFBC).withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: Color(0xFF9E182B), width: 1),
                 ),
@@ -150,7 +150,7 @@ class SignsGbvPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
